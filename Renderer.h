@@ -148,7 +148,7 @@ public:
 					{
 						if (noteptr->End >= tick)
 						{
-						l = Color[abs((noteptr-> Track % 16)-15)][abs((noteptr-> Channel)-15)];
+						l = Color[abs((abs(noteptr-> Track + noteptr-> Channel )% 16)-15)];
 							if (!flg && (flg = true)) noteBegins[i] = noteptr;
 							if (noteptr->Start < tick)
 							{
@@ -184,7 +184,7 @@ public:
 					{
 						if (noteptr->End >= tick)
 						{
-						l = Color[abs((noteptr-> Track % 16)-15)][abs((noteptr-> Channel)-15)];
+							l = Color[abs((abs(noteptr-> Track + noteptr-> Channel )% 16)-15)];
 							if (!flg && (flg = true)) noteBegins[a] = noteptr;
 							if (noteptr->Start < tick)
 							{
