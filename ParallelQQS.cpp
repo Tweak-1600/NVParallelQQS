@@ -30,7 +30,7 @@ using std::cin;
 static int ErrorCode = 0;
 #ifndef _ENG_
 INLINE_VAR constexpr const static char* Help = "Quaver Stream Renderer 命令\n原作者: qishipai, Modder: TBL-NullptrBlacker\n"
-"版本: Parallel 1.0.1 (12.1)\n\n"
+"版本: Parallel 1.0.1 r2243 (12.1)\n\n"
 "-h                             获取帮助\n"
 "-i (--mid)                     指定打开的Midi文件\n"
 "-o (--vid)                     指定输出的视频文件. 这个文件名应当包含后缀.\n"
@@ -42,7 +42,7 @@ INLINE_VAR constexpr const static char* Help = "Quaver Stream Renderer 命令\n�
 "示例用法: ParallelQQS -i \"A.mid\" -o \"A.mp4\"\n";
 #else
 INLINE_VAR constexpr const static char* Help = "Help Page of Quaver Stream Renderer\nAuthor: qishipai, Modder: TBL-NullptrBlacker\n"
-"Version: Parallel 1.0.1 (12.1)\n\n"
+"Version: Parallel 1.0.1 r2243 (12.1)\n\n"
 "-h                             Get help page.\n"
 "-i (--mid)                     Specifies the midi file.\n"
 "-o (--vid)                     Specifies the output path.\n"
