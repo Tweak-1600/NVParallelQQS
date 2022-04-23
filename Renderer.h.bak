@@ -208,17 +208,9 @@ public:
 			{
 				noteBegins[i] = lastNote[i] = nullptr;
 			}*/
-		double Tfile;
-		for (Tfile=0;;++Tfile)
-		{
-		if (MIDIEnd())
-		{
-		++Tfile;
-		break;
-		}
-		}
 		
-		for (Tplay=-3;Tplay<Tfile+Tscr;Tplay += (double)1/options.FPS)
+		
+		for (Tplay=-3;;Tplay += (double)1/options.FPS)
 		{
 		    MF.update_to(Tplay + Tscr);
             MF.remove_to(Tplay);
@@ -257,6 +249,9 @@ public:
 				});*/
 			canvas.DrawKeys();
 			canvas.WriteFrame();
+            MF.update_to(Tplay);
+            if (MIDIEnd())
+            break;
 			//rprogress.Percentage = tick / _MidiFile.MaxMidiTime;
 			/*size_t tmp = 0;
 			for (int i = 0; i != 128; ++i)

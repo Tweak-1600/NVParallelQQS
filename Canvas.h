@@ -3,7 +3,7 @@
 #include "FFMpeg.h"
 #include "RenderOptions.h"
 #include <sstream>
-#include <math.h>
+#include <cmath>
 class Canvas
 {
 private:
@@ -109,9 +109,9 @@ public:
 		}
 		_KeyWidth[127] = _Width - _KeyX[127];
 
-		if (_Opt.FitNotes) // failed
+		if (_Opt.FitNotes) 
 		{
-			// ï¿½Ú¼ï¿½ï¿½È¿ï¿½
+			
 			for (int i = 0; i != 127; ++i)
 			{
 				switch (i % 12)
@@ -241,7 +241,7 @@ public:
 	{
 		int i, j;
 		int t=(_Width/640)-2;
-		const int bh = _KeyHeight * 64 / 100;
+		const int bh = _KeyHeight * 64 / 100;//ºÚ¼ü¸ß¶È
 		const int bgr = _KeyHeight / 18;
 		const int diff = _KeyHeight - bh;
 		Draw3Drect2(0, _KeyHeight - 2, _Width, _KeyHeight / 16, _LineColor,1.5);
@@ -249,41 +249,31 @@ public:
 		{
 			j = DrawMap[i];
 			DrawGrayRect(_KeyX[j], 0, _KeyWidth[j], _KeyHeight,KeyColors[j],1.05);
-			DrawRectangle(_KeyX[j], 0, _KeyWidth[j] + 1, _KeyHeight, 0xFF000000);
-			DrawGrayRect(_KeyX[j]+1, 0, _KeyWidth[j]-1, bgr/3+1,KeyColors[j],2);
-			
-			 // ï¿½ï¿½ï¿½ï¿½ï¿½Ù¼ï¿½Ö®ï¿½ï¿½Ä·Ö¸ï¿½ï¿½ï¿?
-			if (!KeyPressed[j])
+			DrawRectangle(_KeyX[j], 0, _KeyWidth[j] + 1, _KeyHeight, 0xFF000000);// »æÖÆÇÙ¼üÖ®¼äµÄ·Ö¸ôÏß
+			DrawGrayRect(_KeyX[j]+1, 0, _KeyWidth[j]-1, bgr/3+1,KeyColors[j],2);//°×¼ü°´ÏÂÖ®ºóµ×²¿µÄÉîÉ«
+			if (!KeyPressed[j])//Èç¹û¼üÃ»ÓÐ°´ÏÂ
 			{
 				DrawRectangle(_KeyX[j], 0, _KeyWidth[j]+1, bgr, 0xFF000000);
-				Draw3Drect2(_KeyX[j]+1, 1, _KeyWidth[j]-1, bgr-2, 0xFFAFAFAF,1.3); // ï¿½ï¿½ï¿½Æ²ï¿½Öªï¿½ï¿½ï¿½ï¿½É¶ï¿½Ä¶ï¿½ï¿½ï¿½ (ï¿½Ù¼ï¿½ï¿½×²ï¿½ï¿½ï¿½Ó°)
-				//FillRectangle(_KeyX[60]+(_KeyWidth[60] / 4), bgr+(_KeyWidth[60]/4),(_KeyX[61] - (_KeyWidth[60]/4))-_KeyX[60]+(_KeyWidth[60] / 4), (_KeyX[61] - (_KeyWidth[60]/4))-_KeyX[60]+(_KeyWidth[60] / 4), 0xFFa0a0a0); 
+				Draw3Drect2(_KeyX[j]+1, 1, _KeyWidth[j]-1, bgr-2, 0xFFAFAFAF,1.3); 
 			}
-			
+	    //»æÖÆÇÙ¼üµ×²¿ÒõÓ°
 		}
-		/*if (!KeyPressed[60]){
-		FillRectangle(_KeyX[60]+(_KeyWidth[60] / 3.5), bgr+(_KeyWidth[60]/3.6),(_KeyWidth[60] / 1.9), (_KeyWidth[60]/1.9), 0xFFAAAAAA); 
-		}
-		else
-		{
-		DrawGrayRect(_KeyX[60]+(_KeyWidth[60] / 3.5),_KeyWidth[60]/3.5,(_KeyWidth[60] /1.9),(_KeyWidth[60] / 1.9), KeyColors[60],2.0); 
-		}*/
+
 		
 		for (;i != 128; ++i)
 		{
 			j = DrawMap[i];
 			Draw3Drect(_KeyX[j]-t, diff, _KeyWidth[j]+2*t,bh, KeyColors[j],1.1);
-			DrawNoteRectangle(_KeyX[j]-t, diff, _KeyWidth[j]+1+2*t, bh, KeyColors[j],t); // ï¿½ï¿½ï¿½Â»ï¿½ï¿½ÆºÚ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
-			DrawRectangle(_KeyX[j]-t, diff, _KeyWidth[j]+1+2*t, bh, 0xFF000000);
+			DrawNoteRectangle(_KeyX[j]-t, diff, _KeyWidth[j]+1+2*t, bh, KeyColors[j],t);
+			DrawRectangle(_KeyX[j]-t, diff, _KeyWidth[j]+1+2*t, bh, 0xFF000000);//»æÖÆ°´ÏÂºóµÄºÚ¼ü
 		}
-		Draw3Drect2(0, _KeyHeight - 2, _Width, _KeyHeight / 18, _LineColor,1.5);
+		Draw3Drect2(0, _KeyHeight - 2, _Width, _KeyHeight / 18, _LineColor,1.5);//»æÖÆ¼üÅÌÉÏ·½ºìÏß
 		for (i=75;i!= 128;++i)
 		{
 		    j=DrawMap[i];
 		    if (!KeyPressed[j])
 			{
-				Draw3Drect(_KeyX[j]+1,diff, _KeyWidth[j]-1,bh+(_KeyHeight / 38), 0xFF151515,1.1);
-				//DSJX(_KeyX[j]-t,_KeyX[j]+1,_KeyHeight,_KeyHeight / 38,0xFF000000);
+				Draw3Drect(_KeyX[j]+1,diff, _KeyWidth[j]-1,bh+(_KeyHeight / 38), 0xFF151515,1.1);//ÖØÐÂ»æÖÆºÚ¼ü
 			}
 		}
 		
@@ -309,7 +299,7 @@ public:
 		//FillRectangle(_KeyX[k] + 1, y, _KeyWidth[k] - 1, h, c);
 		Draw3Drect(_KeyX[k] + 1, y+1+t, _KeyWidth[k], h+2, c,1.7);
 		DrawNoteRectangle(_KeyX[k],y+1+t,_KeyWidth[k]+1 ,h+2,l,t);
-	}
+	} //»­°×¼üÉÏµÄÒô·û
 	void DrawNote2(const short k, const int y, int h, const unsigned int c)
 	{
 		if (h > 5) --h;
@@ -326,35 +316,8 @@ public:
 		//FillRectangle(_KeyX[k] + 1, y, _KeyWidth[k] - 1, h, c);
 		Draw3Drect(_KeyX[k]+1, y+1+t, _KeyWidth[k]-1, h+2, c,1.7);
 		DrawNoteRectangle(_KeyX[k]-t+1,y+1+t,_KeyWidth[k]+(2*t)-1 ,h+2,l,t);
-	}
+	} //»­ºÚ¼üÉÏµÄÒô·û
 	 
-	 
-	 void DSJX(const int x1,const int x2,const int y,const int h,const unsigned int c)
-	 {
-	    int s;
-	    if (x1<x2)
-	    {
-	        s=h/(x2-x1);
-	        for(int a=x1,b=0;a!=x2;++a,++b)
-	        {
-	           for(int j=y;j<y+s*b;++j)
-	           {
-	              FI(j,a,c);
-	              }
-	              }
-	              }
-	    else
-	    {
-	    s=h/(x1-x2);
-	        for(int a=x1,b=0;a!=x2;--a,++b)
-	        {
-	           for(int j=y;j<y+s*b;++j)
-	           {
-	              FI(j,a,c);
-	              }
-	              }
-	    }
-	              }
 	
 	void Draw3Drect(const int x, const int y, const int w, const int h, const unsigned int c,double q)
 {
@@ -387,7 +350,7 @@ public:
 			}
 		}
 	}
-}
+} //»æÖÆ½¥±ä¾ØÐÎ(ÑÕÉ«´Ó×óÖÁÓÒÖð½¥¼ÓÉî)
 
 	void Draw3Drect2(const int x, const int y, const int w, const int h, const unsigned int c,double q)
 {
@@ -420,7 +383,7 @@ public:
 			}
 		}
 	}
-}
+} //»æÖÆ½¥±ä¾ØÐÎ(ÑÕÉ«´ÓÉÏÖÁÏÂÖð½¥¼ÓÉî)
 
 	void DrawRectangle(const int x, const int y, const int w, const int h, const unsigned int c)
 	{
@@ -437,7 +400,7 @@ public:
 		//if (h > 1)
 		for (i = x; i < x + w; ++i)
 			FI(y+h-1,i,c);
-	}
+	} //»­¾ØÐÎ¿ò¿ò
 	
    void DrawNoteRectangle(const int x, const int y, const int w, const int h, const unsigned int c , int t)
 	{
@@ -447,19 +410,19 @@ public:
 		{
 	    DrawRectangle(x+j, y+j,w-2*j, h-2*j, c);
 	    }
-	}
+	} //»­Òô·û±ß¿ò
 	void DrawGrayRect(const int x, const int y, const int w, const int h, const unsigned int c , double n)
 	{
-    unsigned short r=((c&0xFF));
-	unsigned short g=(((c&0xFF00)>>8));
-	unsigned short b=(((c&0xFF0000)>>16));
-    r=r/n;
-	g=g/n;
-	b=b/n;
-	unsigned int l;
-	l=0xFF000000|r|g<<8|b<<16;
-    FillRectangle(x,y,w,h,l);
-	}
+        unsigned short r=((c&0xFF));
+	    unsigned short g=(((c&0xFF00)>>8));
+	    unsigned short b=(((c&0xFF0000)>>16));
+        r=r/n;
+	    g=g/n;
+	    b=b/n;
+	    unsigned int l;
+	    l=0xFF000000|r|g<<8|b<<16;
+        FillRectangle(x,y,w,h,l);
+	} //»­ÉîÉ«¾ØÐÎ
 	void FillRectangle(const int x, const int y, const int w, const int h, const unsigned int c)
 	{
 		for (int i = x, xend = x + w; i != xend; ++i)
@@ -469,12 +432,12 @@ public:
 				FI(j,i,c);
 			}
 		}
-	}
+	} //»­ÊµÐÄ¾ØÐÎ
 	
 		void FI(const int x, const int y, const unsigned int c)
 	{
-	   if(x<_Height && y < _Width)
+	   if(x<_Height && y < _Width)////·ÀÖ¹³¬³ö»­²¼
 	   _FrameIndexes[x][y] = c;
-	}
+	} 
 	
 };

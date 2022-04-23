@@ -9,6 +9,7 @@
 #include "Macros.h" // include once
 #include "FFMpeg.h"
 #include "Renderer.h"
+#include "NV.h"
 #if !_POSIX_
 #include <io.h>
 #else
@@ -30,11 +31,11 @@ using std::cin;
 static int ErrorCode = 0;
 #ifndef _ENG_
 INLINE_VAR constexpr const static char* Help = "Quaver Stream Renderer 命令\n原作者: qishipai, Modder: TBL-NullptrBlacker\n"
-"版本: Parallel 1.0.1 r2244 (12.1)\n\n"
+"版本: Parallel 1.0.1 r2250 (12.1)\n\n"
 "-h                             获取帮助\n"
 "-i (--mid)                     指定打开的Midi文件\n"
 "-o (--vid)                     指定输出的视频文件. 这个文件名应当包含后缀.\n"
-"-ns (--notespeed)              音符速度. 这个数应该是一个位于[0.25, 10]内的数.\n"
+"-ns (--notespeed)              音符速度. 这个数应该是一个位于[2000, 10000]内的数.\n"
 "-y                             覆盖输出文件.\n"
 "-w                             设置输出视频宽度.\n"
 "-h                             设置输出视频高度.\n"
@@ -42,11 +43,11 @@ INLINE_VAR constexpr const static char* Help = "Quaver Stream Renderer 命令\n�
 "示例用法: ParallelQQS -i \"A.mid\" -o \"A.mp4\"\n";
 #else
 INLINE_VAR constexpr const static char* Help = "Help Page of Quaver Stream Renderer\nAuthor: qishipai, Modder: TBL-NullptrBlacker\n"
-"Version: Parallel 1.0.1 r2244 (12.1)\n\n"
+"Version: Parallel 1.0.1 r2250 (12.1)\n\n"
 "-h                             Get help page.\n"
 "-i (--mid)                     Specifies the midi file.\n"
 "-o (--vid)                     Specifies the output path.\n"
-"-ns (--notespeed)              Note speed. The argument should belong to [0.25, 10].\n"
+"-ns (--notespeed)              Note speed. The argument should belong to [2000, 10000].\n"
 "-y                             Rewrite the output video.\n"
 "-w                             Set the width of output video.\n"
 "-h                             Set the height of output video.\n"
@@ -55,6 +56,7 @@ INLINE_VAR constexpr const static char* Help = "Help Page of Quaver Stream Rende
 #endif
 void Run(const RenderOptions& opt)
 {
+    
 	const std::string& fileName = opt.MidiPath;
 	RenderFile file;
 	file.Open(fileName);
@@ -122,21 +124,21 @@ int main(int argc, char* argv[])
 			if (i == argc)
 			{
 #ifndef _ENG_
-				cerr << "[参数错误] 音符速度参数后需要一个[0.25, 10]区间内的数." << endl;
+				cerr << "[参数错误] 音符速度参数后需要一个[2000, 10000]区间内的数." << endl;
 #else
-				cerr << "[Argument loss] 'Note speed' parameter requires a digit that is greater or equal to 0.25 and less than or equal to 10." << endl;
+				cerr << "[Argument loss] 'Note speed' parameter requires a digit that is greater or equal to 2000 and less than or equal to 10000." << endl;
 #endif
 				ErrorCode = 1;
 				goto finalize;
 			}
 			const std::string_view& ns = _Args[i];
-			const double _Ns = atof(ns.data());
-			if (_Ns < 0.25 || _Ns > 10)
+			const int _Ns = atoi(ns.data());
+			if (_Ns < 2000|| _Ns > 10000)
 			{
 #ifndef _ENG_
-				cerr << "[参数错误] 音符速度应在[0.25, 10]之间." << endl;
+				cerr << "[参数错误] 音符速度应在[2000, 10000]之间." << endl;
 #else
-				cerr << "[Argument fault] 'Note speed' argument should be greater than or equal to 0.25 and less than or equal to 10." << endl;
+				cerr << "[Argument fault] 'Note speed' argument should be greater than or equal to 2000 and less than or equal to 10000." << endl;
 #endif
 				ErrorCode = 2;
 				goto finalize;
@@ -200,6 +202,7 @@ int main(int argc, char* argv[])
 			_Stream.close();
 #endif
 			options.MidiPath = _Path;
+			
 #ifndef _ENG_
 			cerr << "[参数] Midi路径: " << _Path << endl;
 #else
@@ -303,6 +306,7 @@ int main(int argc, char* argv[])
 				goto finalize;
 			}
 			options.Width = iw;
+			options.KeyboardHeight = iw * 78 / 1000;
 		}
 		else if (currArg == "-h")
 		{
@@ -322,7 +326,7 @@ int main(int argc, char* argv[])
 				goto finalize;
 			}
 			options.Height = ih;
-			options.KeyboardHeight = ih * 15 / 100;
+			
 		}
 	}
 
