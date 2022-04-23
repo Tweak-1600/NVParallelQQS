@@ -220,6 +220,7 @@ public:
 		break;
 		}
 		printf("file time:%f\n",Tfile);
+		MF.list_seek(0);
 		for (Tplay=-3;Tplay<Tfile+Tscr;Tplay += (double)1/options.FPS)
 		{
 		    MF.update_to(Tplay + Tscr);
