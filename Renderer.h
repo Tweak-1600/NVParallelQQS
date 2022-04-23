@@ -167,13 +167,16 @@ private:
 	
 	bool MIDIEnd()
 	{
-	bool q=true;
+	//printf("counting time...");
+	bool q=false;
+	short s=0;
 	for (short t=0;t<MF.M.tracks;++t)
 	{
 	if (MF.M.trk_over[t]==false)
-	q=false;
-	break;
+	++s;
 	}
+	if (s==0)
+	q=true;
 	return q;
 	}
 public:
@@ -211,13 +214,12 @@ public:
 		double Tfile;
 		for (Tfile=0;;++Tfile)
 		{
-		if (MIDIEnd())
-		{
 		++Tfile;
+		MF.list_seek(Tfile);
+		if (MIDIEnd()==true)
 		break;
 		}
-		}
-		
+		printf("file time:%f\n",Tfile);
 		for (Tplay=-3;Tplay<Tfile+Tscr;Tplay += (double)1/options.FPS)
 		{
 		    MF.update_to(Tplay + Tscr);
