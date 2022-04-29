@@ -35,7 +35,7 @@ INLINE_VAR constexpr const static char* Help = "Quaver Stream Renderer 命令\n�
 "-h                             获取帮助\n"
 "-i (--mid)                     指定打开的Midi文件\n"
 "-o (--vid)                     指定输出的视频文件. 这个文件名应当包含后缀.\n"
-"-ns (--notespeed)              音符速度. 这个数应该是一个位于[2000, 10000]内的数.\n"
+"-ns (--notespeed)              音符速度. 这个数应该是一个位于[0.01, 20]内的数.\n"
 "-y                             覆盖输出文件.\n"
 "-w                             设置输出视频宽度.\n"
 "-h                             设置输出视频高度.\n"
@@ -47,7 +47,7 @@ INLINE_VAR constexpr const static char* Help = "Help Page of Quaver Stream Rende
 "-h                             Get help page.\n"
 "-i (--mid)                     Specifies the midi file.\n"
 "-o (--vid)                     Specifies the output path.\n"
-"-ns (--notespeed)              Note speed. The argument should belong to [2000, 10000].\n"
+"-ns (--notespeed)              Note speed. The argument should belong to [0.01, 20].\n"
 "-y                             Rewrite the output video.\n"
 "-w                             Set the width of output video.\n"
 "-h                             Set the height of output video.\n"
@@ -61,7 +61,7 @@ void Run(const RenderOptions& opt)
 	RenderFile file;
 	file.Open(fileName);
 	MultithreadRenderer renderer(static_cast<RenderFile&&>(file), opt);
-	renderer.Render();
+	//renderer.Render(opt);
 }
 int main(int argc, char* argv[])
 {
@@ -132,8 +132,8 @@ int main(int argc, char* argv[])
 				goto finalize;
 			}
 			const std::string_view& ns = _Args[i];
-			const int _Ns = atoi(ns.data());
-			if (_Ns < 2000|| _Ns > 10000)
+			const double _Ns = atof(ns.data());
+			if (_Ns < 0.01|| _Ns > 20)
 			{
 #ifndef _ENG_
 				cerr << "[参数错误] 音符速度应在[2000, 10000]之间." << endl;
