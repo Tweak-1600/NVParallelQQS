@@ -44,7 +44,7 @@ public:
 				i = DrawMap[i];
 				for (const NVnote &n : MF.L[i])
                     {
-                        unsigned int c = Color[15 - (abs(n.track + n.chn) % 16)];
+                        unsigned int c = Color[15-(abs(n.track - 2*n.chn) % 16)];
                         int key = i, y_1;
                         int y_0 = options.Height - (n.Tstart - Tplay) * pps;
                         if (y_0 < 0)
@@ -93,7 +93,7 @@ public:
 				i = DrawMap[i];
 				for (const NVnote &n : MF.L[i])
                     {
-                        unsigned int c = Color[15 - (abs(n.track + n.chn) % 16)];
+                        unsigned int c = Color[15-(abs(n.track - 2*n.chn) % 16)];
                         int key = i, y_1;
                         int y_0 = options.Height - (n.Tstart - Tplay) * pps;
                         if (y_0 < 0)
