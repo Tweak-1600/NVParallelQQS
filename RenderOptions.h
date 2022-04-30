@@ -12,5 +12,4 @@ public:
 	int KeyboardHeight = Width * 78 / 1000;
 	int FPS = 60;
 	unsigned int SeparateBarColor = 0xFF0D0A98;
-	bool FitNotes = true;
 };

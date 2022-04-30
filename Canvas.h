@@ -16,9 +16,7 @@ private:
 	size_t _FrameSize;
 	FFMpeg _Pipe;
 	int _KeyX[128];
-	int _NoteX[128];
 	int _KeyWidth[128];
-	int _NoteWidth[128];
 	unsigned int* _Frame;
 	unsigned int** _FrameIndexes;
 
@@ -108,75 +106,12 @@ public:
 			_KeyWidth[i] = val;
 		}
 		_KeyWidth[127] = _Width - _KeyX[127];
-
-		if (_Opt.FitNotes) 
-		{
-			
-			for (int i = 0; i != 127; ++i)
-			{
-				switch (i % 12)
-				{
-				case 1:
-				case 3:
-				case 6:
-				case 8:
-				case 10:
-					_NoteWidth[i] = _KeyWidth[i];
-					break;
-				case 0:
-				case 5:
-					_NoteWidth[i] = _KeyX[i + 1] - _KeyX[i];
-					break;
-				default:
-					_NoteWidth[i] = _KeyX[i + 1] - _KeyX[i - 1] - _KeyWidth[i - 1];
-					break;
-				}
-			}
-		}
-		else
-		{
-			memcpy(_NoteWidth, _KeyWidth, 512);
-		}
-		if (_Opt.FitNotes)
-		{
-			for (int i = 0; i != 127; ++i)
-			{
-				switch (i % 12)
-				{
-				case 0:
-				case 5:
-				case 1:
-				case 3:
-				case 6:
-				case 8:
-				case 10:
-					_NoteX[i] = _KeyX[i];
-					break;
-				default:
-					_NoteX[i] = _KeyX[i - 1] + _NoteWidth[i - 1];
-					break;
-				}
-			}
-			_NoteX[127] = _KeyX[126] + _KeyWidth[126];
-			_NoteWidth[127] = _Width - _NoteX[127];
-		}
-		else
-		{
-			memcpy(_NoteX, _KeyX, 512);
-		}
-
 		_EmptyFrame = new unsigned int[_FrameSize];
 		for (int i = 0; i != _FrameSize; ++i)
 		{
 			_EmptyFrame[i] = 0xFF000000;
 		}
 		memcpy(_Frame, _EmptyFrame, _FrameSize * 4);
-		/*for (int j,i=75;i!=128;++i)
-		{
-		j=DrawMap[i];
-		_KeyX[j]-= _KeyX[1]-(_KeyWidth[0] / 2) ;
-		_KeyWidth[j]+=_KeyX[1]+_KeyWidth[1]-((_KeyX[3]-_KeyX[1]+(_KeyWidth[1])) / 2);
-		}*/
 	}
      
 	void Destroy()
@@ -224,12 +159,6 @@ public:
 		memcpy(KeyColors, _InitKeyColors, 512);
 		memcpy(_Frame, _EmptyFrame, _FrameSize * 4);
 		memset(KeyPressed, 0, 128);
-/*#ifdef _DEBUG_
-		FillRectangle(0, 0, _Width, _Height, 0xFFc0c0c0);
-#else
-        FillRectangle(0, 0, _Width, _Height, 0xFF303030);
-#endif
-*/
 	}
 
 	void WriteFrame()
@@ -276,11 +205,6 @@ public:
 				Draw3Drect(_KeyX[j]+1,diff, _KeyWidth[j]-1,bh+(_KeyHeight / 38), 0xFF151515,1.1);//ÖØÐÂ»æÖÆºÚ¼ü
 			}
 		}
-		
-		
-		
-	//	DSJX(50,150,50,40,0xFF000000);
-	//	DSJX(300,200,0,100,0xFFAAAAAA);
 	}
 
 	void DrawNote(const short k, const int y, int h, const unsigned int c)

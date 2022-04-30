@@ -1,34 +1,20 @@
 #pragma once
 #include "RenderFile.h"
 #include "Canvas.h"
-#include "Headers/Stopwatch.h"
 #include "Global.h"
 #include "NV.h"
 #pragma warning(disable:4996)
 using namespace NVi;
-struct RenderProgress
-{
-	bool IsRendering = false;
-	size_t NotesOnScreen = 0;
-	size_t TotalFrames = 0;
-	size_t RenderedFrames = 0;
-	size_t VideoFPS = 0;
-	double RenderFPS = 0;
-	double Percentage = 0.0;
-	double RenderSpeed = 0.0;
-};
 class MultithreadRenderer
 {
 private:
 	RenderFile _MidiFile;
 	Canvas canvas;
-	RenderProgress rprogress;
 public:
 	MultithreadRenderer(RenderFile&& file, const RenderOptions& opt) // render file»á±»×÷·Ï
 	{
 		_MidiFile = static_cast<RenderFile&&>(file); // file discarded!
 		canvas.Initialize(opt);
-		rprogress.VideoFPS = opt.FPS;
 	    RenderOptions options;
 	    options = opt;
     	double Tplay;

@@ -40,7 +40,7 @@ public:
 		_FrameBuff = ff._FrameBuff;
 		ff._Handle = nullptr;
 		ff._FrameBuff = nullptr;
-		_RenderPush.join();
+		//_RenderPush.join();
 		_RenderPush = static_cast<std::thread&&>(ff._RenderPush);
 		return *this;
 	}
@@ -99,7 +99,7 @@ public:
 		{
 			delete[] _FrameBuff;
 		}
-		_RenderPush.join();
+		//_RenderPush.join();
 		_Handle = nullptr;
 		_FrameBuff = nullptr;
 	}

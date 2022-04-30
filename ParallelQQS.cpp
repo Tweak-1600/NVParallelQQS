@@ -15,23 +15,13 @@
 #else
 #include <fstream>
 #endif
-static int _access(const char *name, int a)
-{
-	FILE *fp = fopen(name, "r");
-	
-	if (fp == nullptr)
-		return 1;
-	
-	fclose(fp); return 0;
-}
-
 
 using std::cin;
 
 static int ErrorCode = 0;
 #ifndef _ENG_
 INLINE_VAR constexpr const static char* Help = "Quaver Stream Renderer 命令\n原作者: qishipai, Modder: TBL-NullptrBlacker, Tweak\n"
-"版本: NVParallel 1.0.1 (12.1)\n\n"
+"版本: NVParallel 1.0.1-1 (12.1)\n\n"
 "-h                             获取帮助\n"
 "-i (--mid)                     指定打开的Midi文件\n"
 "-o (--vid)                     指定输出的视频文件. 这个文件名应当包含后缀.\n"
@@ -40,10 +30,10 @@ INLINE_VAR constexpr const static char* Help = "Quaver Stream Renderer 命令\n�
 "-w                             设置输出视频宽度.\n"
 "-h                             设置输出视频高度.\n"
 "-fps (--fps)                   视频的 FPS.\n"
-"示例用法: ParallelQQS -i \"A.mid\" -o \"A.mp4\"\n";
+"示例用法: NVPQQS -i \"A.mid\" -o \"A.mp4\"\n";
 #else
 INLINE_VAR constexpr const static char* Help = "Help Page of Quaver Stream Renderer\nAuthor: qishipai, Modder: TBL-NullptrBlacker,Tweak\n"
-"Version: NVParallel 1.0.1 (12.1)\n\n"
+"Version: NVParallel 1.0.1-1 (12.1)\n\n"
 "-h                             Get help page.\n"
 "-i (--mid)                     Specifies the midi file.\n"
 "-o (--vid)                     Specifies the output path.\n"
@@ -52,7 +42,7 @@ INLINE_VAR constexpr const static char* Help = "Help Page of Quaver Stream Rende
 "-w                             Set the width of output video.\n"
 "-h                             Set the height of output video.\n"
 "-fps (--fps)                   FPS of the output video.\n"
-"Example: ParallelQQS -i \"A.mid\" -o \"A.mp4\"\n";
+"Example: NVPQQS -i \"A.mid\" -o \"A.mp4\"\n";
 #endif
 void Run(const RenderOptions& opt)
 {
@@ -61,7 +51,7 @@ void Run(const RenderOptions& opt)
 	RenderFile file;
 	file.Open(fileName);
 	MultithreadRenderer renderer(static_cast<RenderFile&&>(file), opt);
-	//renderer.Render(opt);
+	cout<<"[NVQQS]CHEER!!!!!   (￣ε([]~（￣▽￣）~*"<<endl;
 }
 int main(int argc, char* argv[])
 {
@@ -124,9 +114,9 @@ int main(int argc, char* argv[])
 			if (i == argc)
 			{
 #ifndef _ENG_
-				cerr << "[参数错误] 音符速度参数后需要一个[2000, 10000]区间内的数." << endl;
+				cerr << "[参数错误] 音符速度参数后需要一个[0.01, 20]区间内的数." << endl;
 #else
-				cerr << "[Argument loss] 'Note speed' parameter requires a digit that is greater or equal to 2000 and less than or equal to 10000." << endl;
+				cerr << "[Argument loss] 'Note speed' parameter requires a digit that is greater or equal to 0.01 and less than or equal to 20." << endl;
 #endif
 				ErrorCode = 1;
 				goto finalize;
@@ -136,9 +126,9 @@ int main(int argc, char* argv[])
 			if (_Ns < 0.01|| _Ns > 20)
 			{
 #ifndef _ENG_
-				cerr << "[参数错误] 音符速度应在[2000, 10000]之间." << endl;
+				cerr << "[参数错误] 音符速度应在[0.01, 20]之间." << endl;
 #else
-				cerr << "[Argument fault] 'Note speed' argument should be greater than or equal to 2000 and less than or equal to 10000." << endl;
+				cerr << "[Argument fault] 'Note speed' argument should be greater than or equal to 0.01 and less than or equal to 20." << endl;
 #endif
 				ErrorCode = 2;
 				goto finalize;
@@ -376,11 +366,6 @@ int main(int argc, char* argv[])
 
 	Run(options);
 finalize:
-	//对AnsiString参数列表析构
-	for (int i = 0; i != argc; ++i)
-	{
-		_Args[i].~string_view();
-	}
 	clog << endl;
 	return ErrorCode;
 }
