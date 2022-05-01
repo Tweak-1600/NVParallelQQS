@@ -20,11 +20,12 @@ public:
     	double Tplay;
     	int pps =(int)options.Height / options.NoteSpeed;
 	    double Tscr=options.NoteSpeed;
+	    MF.M.rewind_all();
 		for (Tplay=-3;(Tplay += 1.0 / options.FPS) <= MF.Tread+3;)
 		{
 		    canvas.Clear();
 		    MF.update_to(Tplay + Tscr);
-            MF.remove_to(Tplay);
+            MF.remove_to(Tplay);MF.OR();
 			Parallel::For(0,75, [this,&options,&Tplay,&Tscr,&pps](int i) 
 				{
 				i = DrawMap[i];

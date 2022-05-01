@@ -15,7 +15,22 @@ public:
             }
             else
             {
-                fprintf(stderr, "MIDI file opened\n");
+                printf("MIDI file opened\n");
+	            printf( "MIDI Format: format%hd\n",     MF.M.type);
+	            printf(   "Track: %hd\n",   MF.M.tracks);
+            	printf( "PPNQ: %d\n",  MF.M.ppnq);
+            	NVmidiEvent event; int note_total = 0;
+            	for (int i = 0; i < MF.M.tracks; ++i)
+            	    {
+            	        while (event.get(i,MF.M))
+            	            {
+		                    	if (event.type  == NV_METYPE::NOON)
+		                        	{
+			                        	++note_total;
+		                        	}
+	                    	}
+                	}
+                printf("Note Count: %d\n", note_total);
             }
         }
 };
