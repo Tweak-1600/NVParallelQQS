@@ -165,6 +165,36 @@ void NVnoteList::VisualFit(double T)
     }
 }
 
+
+void NVnoteList::OR()        // 大概有用的重叠移除器
+{
+    for (int i = 0; i < 128; ++i)
+    {
+        list<NVnote>::iterator p = L[i].end();
+        double T0 = 114514191981.0;
+        double T1 = 114514191981.0;
+
+        while (p-- != L[i].begin())
+        {
+            if (T0 < p->Tend && p->Tend < T1)
+            {
+                p->Tend = T0, T0 = p->Tstart;
+
+                if (p->Tend - p->Tstart < 1e-7)
+                {
+                    p = L[i].erase(p);
+                }
+            }
+            else
+            {
+                T0 = p->Tstart, T1 = p->Tend;
+            }
+        }
+    }
+}
+
+
+
 void NVnoteList::remove_to(double T)
 {
     for (u16_t k = 0; k < 128; ++k)

@@ -40,6 +40,8 @@ public:
     /* 懂BM的都懂，不懂用不到 */
     void VisualFit(double T);
 
+    void OR();  // 曾经被弃用的函数
+
     /* 移除列表中第T秒前的音符 */
     void remove_to(double T);
 
