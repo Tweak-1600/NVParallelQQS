@@ -11,7 +11,7 @@ void NVi::error(const char *prefix, const char *str, ...)
     va_list args;
     static HANDLE h = GetStdHandle(STD_ERROR_HANDLE);
     SetConsoleTextAttribute(h, 0x0F); fprintf(stderr, "[%s] ", prefix);
-    SetConsoleTextAttribute(h, 0x0C); fprintf(stderr, "错误: ");
+    SetConsoleTextAttribute(h, 0x0C); fprintf(stderr, "Error: ");
     SetConsoleTextAttribute(h, 0x07);
     va_start(args, str); vfprintf(stderr, str, args); va_end(args);
 }
@@ -21,7 +21,7 @@ void NVi::warn(const char *prefix, const char *str, ...)
     va_list args;
     static HANDLE h = GetStdHandle(STD_ERROR_HANDLE);
     SetConsoleTextAttribute(h, 0x0F); fprintf(stderr, "[%s] ", prefix);
-    SetConsoleTextAttribute(h, 0x0E); fprintf(stderr, "警告: ");
+    SetConsoleTextAttribute(h, 0x0E); fprintf(stderr, "Warning: ");
     SetConsoleTextAttribute(h, 0x07);
     va_start(args, str); vfprintf(stderr, str, args); va_end(args);
 }
@@ -31,7 +31,7 @@ void NVi::info(const char *prefix, const char *str, ...)
     va_list args;
     static HANDLE h = GetStdHandle(STD_ERROR_HANDLE);
     SetConsoleTextAttribute(h, 0x0F); fprintf(stderr, "[%s] ", prefix);
-    SetConsoleTextAttribute(h, 0x0A); fprintf(stderr, "注意: ");
+    SetConsoleTextAttribute(h, 0x0A); fprintf(stderr, "Be careful: ");
     SetConsoleTextAttribute(h, 0x07);
     va_start(args, str); vfprintf(stderr, str, args); va_end(args);
 }
@@ -41,21 +41,21 @@ void NVi::info(const char *prefix, const char *str, ...)
 void NVi::error(const char *prefix, const char *str, ...)
 {
     va_list args;
-    fprintf(stderr, "\033[1m[%s] \033[31m错误: \033[m", prefix);
+    fprintf(stderr, "\033[1m[%s] \033[31mError: \033[m", prefix);
     va_start(args, str); vfprintf(stderr, str, args); va_end(args);
 }
 
 void NVi::warn(const char *prefix, const char *str, ...)
 {
     va_list args;
-    fprintf(stderr, "\033[1m[%s] \033[33m警告: \033[m", prefix);
+    fprintf(stderr, "\033[1m[%s] \033[33mWarning: \033[m", prefix);
     va_start(args, str); vfprintf(stderr, str, args); va_end(args);
 }
 
 void NVi::info(const char *prefix, const char *str, ...)
 {
     va_list args;
-    fprintf(stderr, "\033[1m[%s] \033[32m注意: \033[m", prefix);
+    fprintf(stderr, "\033[1m[%s] \033[32mBe careful: \033[m", prefix);
     va_start(args, str); vfprintf(stderr, str, args); va_end(args);
 }
 

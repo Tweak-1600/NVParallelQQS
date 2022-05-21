@@ -19,8 +19,8 @@ bool NVnoteList::start_parse(const char *name)
 
     if (M.type == 2)
     {
-        error("Nlist", "%s: 类型不支持(fmt2)\n");
-        info ("Nlist", "支持类型: fmt0 fmt1\n");
+        error("Nlist", "%s: Type does not support(fmt2)\n");
+        info ("Nlist", "Type of support: fmt0 fmt1\n");
         return (M.mid_close(), false);
     }
 

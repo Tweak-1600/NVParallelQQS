@@ -10,20 +10,20 @@ bool NVmidiFile::mid_open(const char *name)
 
     if (fp == nullptr)
     {
-        error("MIDI", "%s: 不存在或无法访问!\n", name);
-        info ("MIDI", "请检查文件名与文件权限!\n");
+        error("MIDI", "%s: File does not exist or cannot be accessed!\n", name);
+        info ("MIDI", "Please check the file name and file permissions!\n");
         return false;
     }
 
     if (fread(&tmp, 4, 1, fp) != 1)
     {
-        error("MIDI", "%s: MIDI文件已损坏!\n", name);
+        error("MIDI", "%s: The MIDI file is corrupted!\n", name);
         return (fclose(fp), false);
     }
 
     if (tmp != "MThd"_u64be)
     {
-        error("MIDI", "%s: 非标准MIDI文件!\n", name);
+        error("MIDI", "%s: Non-standard MIDI file!\n", name);
         return (fclose(fp), false);
     }
 
@@ -46,7 +46,7 @@ bool NVmidiFile::mid_open(const char *name)
         if (tmp != "MTrk"_u64be)
         {
             tracks = trk, mid_close();
-            error("MIDI", "异常数据块!\n");
+            error("MIDI", "Abnormal data block!\n");
             info ("MIDI", "@Track%hd\n", trk);
             return (fclose(fp), false);
         }
@@ -155,7 +155,7 @@ bool NVmidiEvent::get(u16_t track, NVmidiFile &midi)
 
     default:
 
-        warn("MIDI", "异常事件!(@Track%hd)\n", track);
+        warn("MIDI", "Abnormal event!(@Track%hd)\n", track);
         info("MIDI", "@%08x\n", *p - midi.trk_data[track]);
         return false;
     }

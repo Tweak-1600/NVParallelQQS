@@ -32,7 +32,7 @@ void NVsequencer::seq_reset(NVmidiFile &midi)
         else
         {
             T[L + i] = midi.tracks;
-            warn("Sequ", "发现空轨道: %d", i);
+            warn("Sequ", "Find an empty track.: %d", i);
         }
     }
 
