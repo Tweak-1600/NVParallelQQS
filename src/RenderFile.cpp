@@ -16,7 +16,7 @@ NVnoteList RenderFile::Open(const std::string& _Path)
             	    {
             	        while (event.get(i,MF.M))
             	            {
-		                    	if (event.type  == NV_METYPE::NOON)
+		                    	if (event.type  == NV_METYPE::NOON && event.value>0)
 		                        	{
 			                        	++note_total;
 		                        	}
