@@ -1,0 +1,3 @@
+#define VER "@VER@"
+#define _POSIX_ @POSIX@
+#define COMPILER "@CMAKE_CXX_COMPILER_ID@"
