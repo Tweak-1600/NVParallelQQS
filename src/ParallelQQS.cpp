@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 		cout<<"使用"<<COMPILER<<"编译."<<"\n\n";
 		#else
 		cout<<"Version: NVParallel "<<VER<<endl;
-		cout<<"Build with "<<COMPILER<<"."<<"\n\n";
+		cout<<"Built with "<<COMPILER<<"."<<"\n\n";
 		#endif
 		cout<<Help1<<argv[0]<<Help2<<endl;
 		
