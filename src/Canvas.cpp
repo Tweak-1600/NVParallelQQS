@@ -88,6 +88,8 @@ void Canvas::Clear()
 		memcpy(KeyColors, _InitKeyColors, 512);
 		memcpy(_Frame, _EmptyFrame, _FrameSize * 4);
 		memset(KeyPressed, 0, 128);
+		FillRectangle(0,0,_Width,_Height,0xFF303030);
+		
 	}
 void Canvas::WriteFrame()
 	{

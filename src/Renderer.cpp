@@ -119,4 +119,5 @@ MultithreadRenderer::MultithreadRenderer(const RenderOptions& opt,const NVnoteLi
 	canvas.Clear();
 	canvas.DrawKeys();
 	canvas.Destroy();
+	MF.destroy_all();
 	}

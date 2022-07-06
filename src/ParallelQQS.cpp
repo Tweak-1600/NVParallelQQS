@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 		cout<<"使用"<<COMPILER<<"编译."<<"\n\n";
 		#else
 		cout<<"Version: NVParallel "<<VER<<endl;
-		cout<<"Built with "<<COMPILER<<"."<<"\n\n";
+		cout<<"Built with "<<COMPILER<<"\n\n";
 		#endif
 		cout<<Help1<<argv[0]<<Help2<<endl;
 		
@@ -307,7 +307,7 @@ int main(int argc, char* argv[])
 				goto finalize;
 			}
 			options.Width = iw;
-			options.KeyboardHeight = iw * 78 / 1000;
+			options.KeyboardHeight = iw * 80 / 1000;
 		}
 		else if (currArg == "-h")
 		{
