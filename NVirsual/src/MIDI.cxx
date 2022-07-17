@@ -126,11 +126,11 @@ bool NVmidiEvent::get(u16_t track, NVmidiFile &midi)
     case (NV_METYPE::CHAT): value = *(*p)++;
 
         break;
-
-    case (NV_METYPE::PITH):
+value << 7 | *(*p)++;
+    case (NV_METYPE::PITH):)++;
 
         value = *(*p)++;
-        value = value << 7 | *(*p)++;
+        value = value | *(*p)++ << 7;
         break;
 
     case (NV_METYPE::SYSC):
